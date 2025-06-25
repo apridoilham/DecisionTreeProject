@@ -1,0 +1,213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font Optimization via Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Raleway:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap');
+
+body {
+    background-color: theme('colors.bg-primary');
+    color: theme('colors.text-primary');
+    font-family: theme('fontFamily.sans');
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Overall App Container */
+.app-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+}
+
+/* Page Header */
+.page-header {
+    @apply text-center py-12 mb-12;
+}
+
+.app-title {
+    @apply text-5xl font-bold mb-3 text-text-primary;
+    font-family: theme('fontFamily.heading');
+}
+
+.app-subtitle {
+    @apply text-lg text-text-secondary max-w-2xl mx-auto;
+}
+
+/* Card Styles */
+.card {
+    @apply bg-bg-secondary border border-border-color rounded-2xl p-6 sm:p-8 shadow-lg transition-all duration-300 ease-in-out;
+}
+
+.card:hover {
+    @apply border-border-light shadow-xl;
+    transform: translateY(-4px);
+}
+
+.card-header {
+    @apply flex items-center gap-4 pb-5 border-b border-border-color;
+}
+
+.card-title {
+    @apply text-xl font-semibold text-text-primary;
+}
+
+/* Input Fields & Labels */
+.input-label {
+    @apply block text-sm font-medium text-text-secondary mb-2;
+}
+
+.form-control {
+    @apply w-full px-4 py-3 bg-bg-primary border border-border-color rounded-lg text-base text-text-primary transition-all duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-accent-blue focus:border-accent-blue;
+}
+
+.form-control:hover {
+    @apply border-border-light;
+}
+
+/* Button Styles */
+.btn {
+    @apply px-5 py-2.5 text-base font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.btn-primary {
+    @apply bg-accent-blue text-white hover:bg-accent-blue-hover focus:ring-accent-blue focus:ring-offset-bg-secondary;
+}
+
+.btn-secondary {
+    @apply bg-white text-text-secondary border border-border-color hover:bg-bg-tertiary focus:ring-accent-blue focus:ring-offset-bg-secondary;
+}
+
+.btn-icon {
+    @apply w-10 h-10 p-0 text-lg;
+}
+
+.btn-danger {
+    @apply bg-danger-red text-white hover:bg-danger-red-hover focus:ring-danger-red focus:ring-offset-bg-secondary;
+}
+
+/* Tree Visualization Area */
+.tree-container {
+    @apply relative overflow-auto rounded-xl shadow-inner min-h-[500px] bg-bg-tertiary border border-border-color p-4;
+}
+
+.tree-image {
+    @apply block max-w-full h-auto mx-auto cursor-move;
+    transform-origin: top left;
+}
+
+.tree-controls {
+    @apply absolute bottom-5 right-5 flex gap-2 bg-white/70 border border-border-color p-2 rounded-xl shadow-lg backdrop-blur-sm;
+}
+
+.tree-controls button {
+    @apply bg-white border border-transparent text-text-secondary hover:text-text-primary hover:bg-bg-tertiary p-2 rounded-lg;
+}
+
+/* Logs Area */
+.logs-container {
+    @apply relative overflow-hidden rounded-xl shadow-inner bg-bg-tertiary border border-border-color;
+}
+
+.logs-content {
+    @apply custom-scrollbar max-h-[400px] overflow-y-auto p-4 text-sm text-text-secondary font-mono;
+}
+
+.logs-actions {
+    @apply flex justify-end gap-3 mt-4;
+}
+
+/* Toast Notification (Managed by Alpine.js) */
+.toast {
+    @apply fixed bottom-8 right-8 p-4 rounded-lg shadow-xl text-white flex items-center space-x-3 z-50;
+}
+
+.toast.toast-success { background-color: theme('colors.success-green'); }
+.toast.toast-error { background-color: theme('colors.danger-red'); }
+.toast.toast-info { background-color: theme('colors.accent-blue'); }
+
+/* Falling Leaves Animation */
+.falling-leaves {
+    @apply fixed inset-0 pointer-events-none z-10;
+}
+
+.leaf {
+    @apply absolute w-5 h-5;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%2310B981" d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg>') no-repeat center center;
+    background-size: contain;
+    animation: falling-anim 10s infinite linear;
+    opacity: 0.6;
+}
+
+@keyframes falling-anim {
+    0% { transform: translateY(-10vh) translateX(0) rotate(0deg); }
+    100% { transform: translateY(110vh) translateX(5vw) rotate(720deg); opacity: 0; }
+}
+
+/* Custom Table Styles for Data Preview */
+.table-auto {
+    @apply w-full border-collapse;
+}
+
+.table-auto th, .table-auto td {
+    @apply px-4 py-3 border-b border-border-color text-text-primary text-left whitespace-nowrap;
+    text-align: center; /* Re-center text as per original design */
+}
+
+.table-auto thead th {
+    @apply bg-bg-tertiary text-text-secondary uppercase text-xs font-semibold tracking-wider;
+}
+
+.table-auto tbody tr {
+    @apply transition-colors duration-200;
+}
+
+.table-auto tbody tr:nth-child(even) {
+    @apply bg-bg-primary;
+}
+.table-auto tbody tr:nth-child(odd) {
+    @apply bg-bg-secondary;
+}
+
+.table-auto tbody tr:hover {
+    @apply bg-bg-tertiary;
+}
+
+/* Tippy.js Tooltip Theme Integration */
+.tippy-box[data-theme~='forest'] {
+    background-color: theme('colors.brand-primary');
+    color: white;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.tippy-box[data-theme~='forest'][data-placement^='top'] > .tippy-arrow::before {
+    border-top-color: theme('colors.brand-primary');
+}
+
+.tippy-box[data-theme~='forest'][data-placement^='bottom'] > .tippy-arrow::before {
+    border-bottom-color: theme('colors.brand-primary');
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: theme('colors.bg-tertiary');
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: theme('colors.border-light');
+    border-radius: 10px;
+    border: 2px solid theme('colors.bg-tertiary');
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #9CA3AF; /* gray-400 */
+}

@@ -1,0 +1,11 @@
+Flask==3.1.1
+Flask-SQLAlchemy==3.1.1
+Flask-Cors==4.0.1
+numpy==2.0.2
+pandas==2.3.0
+graphviz==0.20.1
+anytree==2.11.0
+rich==13.7.1
+PyYAML==6.0.1
+tabulate==0.9.0
+gunicorn==23.0.0

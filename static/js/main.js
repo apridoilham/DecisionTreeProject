@@ -124,24 +124,36 @@ document.addEventListener('alpine:init', () => {
                 tippy('[data-tippy-content]', {
                     theme: 'forest',
                     animation: 'scale',
+                    touch: false // <-- PERBAIKAN 1: Tooltip tidak akan muncul di perangkat sentuh
                 });
             }
         },
 
         showUserGuide() {
             if (window.introJs) {
-                introJs().setOptions({
+                const intro = introJs();
+                intro.setOptions({
                     steps: [
-                        { element: '#parameters', title: 'Masukkan Parameter', intro: 'Masukkan parameter yang dipisahkan koma. Parameter terakhir adalah variabel target.' },
-                        { element: '#trainingData', title: 'Masukkan Data Pelatihan', intro: 'Masukkan data pelatihan Anda, satu baris per entri data, dipisahkan koma.' },
-                        { element: '#build-btn', title: 'Bangun Pohon', intro: 'Klik di sini untuk membangun pohon keputusan berdasarkan data Anda.' },
-                        { element: '#treeVisualization', title: 'Visualisasi Pohon', intro: 'Pohon keputusan Anda akan ditampilkan di sini setelah dibangun.' },
-                        { element: '#buildLogs', title: 'Log Build', intro: 'Lihat log terperinci dari proses pembangunan pohon di sini.' }
+                        { element: document.querySelector('#parameters'), title: 'Masukkan Parameter', intro: 'Masukkan parameter yang dipisahkan koma. Parameter terakhir adalah variabel target.' },
+                        { element: document.querySelector('#trainingData'), title: 'Masukkan Data Pelatihan', intro: 'Masukkan data pelatihan Anda, satu baris per entri data, dipisahkan koma.' },
+                        { element: document.querySelector('#build-btn'), title: 'Bangun Pohon', intro: 'Klik di sini untuk membangun pohon keputusan berdasarkan data Anda.' },
+                        { element: document.querySelector('#treeVisualization'), title: 'Visualisasi Pohon', intro: 'Pohon keputusan Anda akan ditampilkan di sini setelah dibangun.' },
+                        { element: document.querySelector('#buildLogs'), title: 'Log Build', intro: 'Lihat log terperinci dari proses pembangunan pohon di sini.' }
                     ],
-                    nextLabel: 'Berikutnya',
-                    prevLabel: 'Sebelumnya',
-                    doneLabel: 'Selesai'
-                }).start();
+                    nextLabel: 'Berikutnya &rarr;',
+                    prevLabel: '&larr; Sebelumnya',
+                    doneLabel: 'Selesai',
+                    showBullets: false,
+                    exitOnOverlayClick: true,
+                    scrollToElement: true,
+                });
+                
+                // PERBAIKAN 2: Listener untuk memperbaiki posisi jika layar berubah ukuran
+                window.addEventListener('resize', () => {
+                    intro.refresh();
+                }, true);
+
+                intro.start();
             } else {
                 this.showToast('Pustaka Intro.js tidak dimuat.', 'error');
             }

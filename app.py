@@ -229,17 +229,17 @@ class WebTreeVisualizer(TreeVisualizer):
                 overlap='false'
             )
             g.attr('node', 
-                   style='filled', 
-                   fontname='Arial', 
-                   fontsize='14',
-                   penwidth='1.5'
+                    style='filled', 
+                    fontname='Arial', 
+                    fontsize='14',
+                    penwidth='1.5'
             )
             g.attr('edge', 
-                   fontname='Arial', 
-                   fontsize='12', 
-                   fontcolor='#4A5568',
-                   color='#CBD5E0',
-                   arrowhead='none'
+                    fontname='Arial', 
+                    fontsize='12', 
+                    fontcolor='#4A5568',
+                    color='#CBD5E0',
+                    arrowhead='none'
             )
 
             for node in PreOrderIter(tree):
@@ -248,12 +248,12 @@ class WebTreeVisualizer(TreeVisualizer):
                 if node.name.startswith("Leaf:"):
                     label = node.name.replace("Leaf: ", "").strip()
                     g.node(node_id, label, shape='box', style='filled,rounded', 
-                           fillcolor='#F0FFF4', color='#9AE6B4', fontcolor='#2F855A')
+                            fillcolor='#F0FFF4', color='#9AE6B4', fontcolor='#2F855A')
                 
                 elif node.name.startswith("Split:"):
                     label = node.name.replace("Split: ", "").strip()
                     g.node(node_id, label, shape='ellipse', 
-                           fillcolor='#EBF8FF', color='#90CDF4', fontcolor='#2C5282')
+                            fillcolor='#EBF8FF', color='#90CDF4', fontcolor='#2C5282')
 
                 if node.parent and not node.parent.is_root:
                     if not node.parent.name.startswith(("Split:", "Leaf:")):
@@ -358,7 +358,7 @@ class WebTreeBuilder(TreeBuilder):
         return gain
     
     def best_split(self, data: pd.DataFrame, features: List[str], target_column: str, depth: int) -> str:
-        self.log_message(f"Mencari split terbaik dari {features}...", indent=depth)
+        self.log_message(f"Finding best split from {features}...", indent=depth)
         gains = {}
         for feature in features:
             gain = self.information_gain(data, feature, target_column)
@@ -366,14 +366,14 @@ class WebTreeBuilder(TreeBuilder):
             self.log_message(f"- Gain({feature}) = {gain:.4f}", indent=depth + 1)
 
         best_feature = max(gains, key=gains.get)
-        self.log_message(f"⭐ Split terbaik: {best_feature} (Gain = {gains[best_feature]:.4f})\n", indent=depth)
+        self.log_message(f"⭐ Best split: {best_feature} (Gain = {gains[best_feature]:.4f})\n", indent=depth)
         return best_feature
 
     def build_tree(self, data: pd.DataFrame, features: List[str], target_column: str) -> Node:
         self.build_logs = []
-        self.log_message("Memulai pembangunan pohon keputusan...", level='info')
-        self.log_message(f"Total sampel: {len(data)}", level='info')
-        self.log_message(f"Fitur: {features}", level='info')
+        self.log_message("Starting decision tree build...", level='info')
+        self.log_message(f"Total samples: {len(data)}", level='info')
+        self.log_message(f"Features: {features}", level='info')
         self.log_message(f"Target: {target_column}\n", level='info')
         return super().build_tree(data, features, target_column)
 
@@ -390,28 +390,28 @@ def index():
 def build_tree_endpoint():
     try:
         if not request.is_json:
-            return jsonify({'error': 'Content-Type harus application/json'}), 400
+            return jsonify({'error': 'Content-Type must be application/json'}), 400
 
         req_data = request.json
         if not req_data:
-            return jsonify({'error': 'Data JSON tidak boleh kosong'}), 400
+            return jsonify({'error': 'JSON data cannot be empty'}), 400
 
         parameters = [p.strip() for p in req_data.get('parameters', '').split(',') if p.strip()]
         if len(parameters) < 2:
-            return jsonify({'error': 'Minimal harus ada 2 parameter (1 fitur, 1 target)'}), 400
+            return jsonify({'error': 'At least 2 parameters are required (1 feature, 1 target)'}), 400
 
         data_rows_str = req_data.get('data', '')
         if not data_rows_str.strip():
-            return jsonify({'error': 'Dataset tidak boleh kosong'}), 400
+            return jsonify({'error': 'Dataset cannot be empty'}), 400
 
         data_rows = [row.strip().split(',') for row in data_rows_str.split('\n') if row.strip()]
         if len(data_rows) < 2:
-            return jsonify({'error': 'Minimal harus ada 2 baris data'}), 400
+            return jsonify({'error': 'At least 2 data rows are required'}), 400
 
         for i, row in enumerate(data_rows, 1):
             if len(row) != len(parameters):
                 return jsonify({
-                    'error': f'Baris data ke-{i} memiliki {len(row)} kolom, seharusnya {len(parameters)}.'
+                    'error': f'Data row {i} has {len(row)} columns, but {len(parameters)} were expected.'
                 }), 400
 
         df = pd.DataFrame(data_rows, columns=parameters)
@@ -436,7 +436,7 @@ def build_tree_endpoint():
 
     except Exception as e:
         logger.exception("Error in build_tree endpoint:")
-        return jsonify({'error': f'Terjadi kesalahan internal: {str(e)}'}), 500
+        return jsonify({'error': f'An internal error occurred: {str(e)}'}), 500
 
 @app.route('/static/<path:path>')
 def send_static(path):
@@ -444,7 +444,7 @@ def send_static(path):
 
 @app.errorhandler(413)
 def request_entity_too_large(error):
-    return jsonify({'error': 'Ukuran data terlalu besar. Maksimal 10MB.'}), 413
+    return jsonify({'error': 'Payload size is too large. Maximum 10MB.'}), 413
 
 @app.route("/healthz")
 def health_check():

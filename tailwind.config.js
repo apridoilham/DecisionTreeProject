@@ -7,23 +7,23 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'bg-primary': '#F9FAFB',      // Latar belakang utama (Gray 50)
-        'bg-secondary': '#FFFFFF',    // Latar belakang kartu (Putih)
-        'bg-tertiary': '#F3F4F6',     // Latar belakang untuk hover, header tabel (Gray 100)
-        'border-color': '#E5E7EB',   // Warna border standar (Gray 200)
-        'border-light': '#D1D5DB',   // Warna border saat hover/fokus (Gray 300)
-        'text-primary': '#1F2937',    // Warna teks utama (Gray 800)
-        'text-secondary': '#6B7280',  // Warna teks sekunder, label (Gray 500)
+        'bg-primary': '#F9FAFB',       // Main background (Gray 50)
+        'bg-secondary': '#FFFFFF',     // Card background (White)
+        'bg-tertiary': '#F3F4F6',      // Background for hover, table header (Gray 100)
+        'border-color': '#E5E7EB',    // Standard border color (Gray 200)
+        'border-light': '#D1D5DB',    // Border color on hover/focus (Gray 300)
+        'text-primary': '#1F2937',     // Primary text color (Gray 800)
+        'text-secondary': '#6B7280',   // Secondary text color, labels (Gray 500)
         
-        /* Palet Aksen Baru - Biru cerah yang cocok di tema terang */
-        'accent-blue': '#3B82F6',          // Biru untuk elemen interaktif (Blue 500)
-        'accent-blue-hover': '#2563EB',    // Biru lebih gelap saat hover (Blue 600)
-        'danger-red': '#EF4444',           // Merah untuk error (Red 500)
-        'danger-red-hover': '#DC2626',     // Merah lebih gelap saat hover (Red 600)
-        'success-green': '#10B981',        // Hijau untuk sukses (Emerald 500)
-        'success-green-hover': '#059669',  // Hijau lebih gelap saat hover (Emerald 600)
+        /* New Accent Palette - Bright blue suitable for a light theme */
+        'accent-blue': '#3B82F6',         // Blue for interactive elements (Blue 500)
+        'accent-blue-hover': '#2563EB',   // Darker blue on hover (Blue 600)
+        'danger-red': '#EF4444',          // Red for errors (Red 500)
+        'danger-red-hover': '#DC2626',    // Darker red on hover (Red 600)
+        'success-green': '#10B981',       // Green for success (Emerald 500)
+        'success-green-hover': '#059669', // Darker green on hover (Emerald 600)
 
-        /* Warna khusus untuk tooltip */
+        /* Custom color for tooltips */
         'brand-primary': '#252D37',
       },
       fontFamily: {
@@ -36,7 +36,7 @@ module.exports = {
       },
       keyframes: {
         'spin': {
-            'to': { transform: 'rotate(360deg)' },
+          'to': { transform: 'rotate(360deg)' },
         },
       },
       boxShadow: {

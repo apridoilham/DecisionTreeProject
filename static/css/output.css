@@ -856,9 +856,9 @@ video {
   color: rgb(59 130 246 / var(--tw-text-opacity, 1));
 }
 
-.text-danger-red {
+.text-accent-blue-hover {
   --tw-text-opacity: 1;
-  color: rgb(239 68 68 / var(--tw-text-opacity, 1));
+  color: rgb(37 99 235 / var(--tw-text-opacity, 1));
 }
 
 .text-text-primary {
@@ -1481,6 +1481,10 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: #9CA3AF;
   /* gray-400 */
+}
+
+.hover\:underline:hover {
+  text-decoration-line: underline;
 }
 
 @media (min-width: 640px) {

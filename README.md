@@ -1,120 +1,114 @@
-# 🌳 Pohon Keputusan Pintar
+# 🌳 Smart Decision Tree
 
 [](https://www.python.org/) [](https://flask.palletsprojects.com/) [](https://tailwindcss.com/) [](https://alpinejs.dev/)
 
-Aplikasi web untuk membangun dan memvisualisasikan pohon keputusan (Decision Tree) secara interaktif. Dibuat dengan backend Python/Flask dan frontend dinamis menggunakan Alpine.js & Tailwind CSS.
+A web application to build and visualize Decision Trees interactively. Built with a Python/Flask backend and a dynamic frontend using Alpine.js & Tailwind CSS.
 
-## 🚀 Fitur Utama
+## 🚀 Key Features
 
-  - **Input Data Interaktif**: Masukkan parameter dan dataset pelatihan langsung melalui antarmuka web.
-  - **Visualisasi Real-time**: Hasilkan diagram pohon keputusan (dendrogram) secara instan setelah data dimasukkan.
-  - **Kontrol Visualisasi**: Lakukan zoom, geser (pan), dan unduh gambar pohon keputusan dengan mudah.
-  - **Data Contoh**: Muat data contoh dengan satu kali klik untuk mencoba fungsionalitas aplikasi dengan cepat.
-  - **Log Proses**: Lacak langkah-langkah yang diambil oleh algoritma untuk membangun pohon melalui panel log.
-  - **Desain Modern**: Antarmuka yang bersih, responsif, dan modern dengan tema terang.
+  - **Interactive Data Input**: Enter parameters and training datasets directly through the web interface.
+  - **Real-time Visualization**: Instantly generate a decision tree diagram (dendrogram) after data submission.
+  - **Visualization Controls**: Easily zoom, pan, and download the decision tree image.
+  - **Example Data**: Load sample data with a single click to quickly test the application's functionality.
+  - **Process Log**: Track the steps taken by the algorithm to build the tree through a dedicated log panel.
+  - **Modern Design**: A clean, responsive, and modern interface with a light theme.
 
-## 🛠️ Teknologi yang Digunakan
+## 🛠️ Tech Stack
 
   - **Backend**: Python, Flask
   - **Frontend**: Tailwind CSS, Alpine.js
-  - **Visualisasi**: Graphviz (digunakan oleh Python)
-  - **Logika Inti**: Pandas, NumPy, Anytree
+  - **Visualization**: Graphviz (used by Python)
+  - **Core Logic**: Pandas, NumPy, Anytree
 
-## ⚙️ Panduan Instalasi & Penggunaan
+## ⚙️ Installation & Usage Guide
 
-Ikuti langkah-langkah berikut untuk menjalankan proyek ini di komputer lokal Anda.
+Follow these steps to run this project on your local machine.
 
-### Prasyarat
+### Prerequisites
 
-  - [Python](https://www.python.org/downloads/) (versi 3.11 atau lebih baru)
-  - [Node.js](https://nodejs.org/) dan npm (untuk kompilasi Tailwind CSS)
-  - [Graphviz](https://graphviz.org/download/) (program ini harus terinstal di sistem Anda agar visualisasi dapat dibuat)
+  - [Python](https://www.python.org/downloads/) (version 3.11 or newer)
+  - [Node.js](https://nodejs.org/) and npm (for compiling Tailwind CSS)
+  - [Graphviz](https://graphviz.org/download/) (this must be installed on your system for visualization to work)
 
-### Langkah-langkah Instalasi
+### Installation Steps
 
-1.  **Clone repositori ini:**
+1.  **Clone this repository:**
 
     ```bash
-    git clone https://github.com/USERNAME/NAMA_REPOSITORI.git
-    cd NAMA_REPOSITORI
+    git clone [https://github.com/USERNAME/REPOSITORY_NAME.git](https://github.com/USERNAME/REPOSITORY_NAME.git)
+    cd REPOSITORY_NAME
     ```
 
-    *(Ganti `USERNAME` dan `NAMA_REPOSITORI` dengan milik Anda)*
+    *(Replace `USERNAME` and `REPOSITORY_NAME` with your own)*
 
-2.  **Buat dan aktifkan virtual environment:**
+2.  **Create and activate a virtual environment:**
 
     ```bash
-    # Membuat environment
+    # Create the environment
     python3 -m venv .venv
 
-    # Mengaktifkan environment (macOS/Linux)
+    # Activate the environment (macOS/Linux)
     source .venv/bin/activate
 
-    # Mengaktifkan environment (Windows)
+    # Activate the environment (Windows)
     # .venv\Scripts\activate
     ```
 
-3.  **Instal dependensi Python:**
+3.  **Install Python dependencies:**
 
     ```bash
     pip install -r requirements.txt
     ```
 
-4.  **Instal dependensi Node.js:**
+4.  **Install Node.js dependencies:**
 
     ```bash
     npm install
     ```
 
-5.  **Kompilasi (build) file CSS Tailwind:**
+5.  **Compile (build) the Tailwind CSS file:**
 
     ```bash
-    # Untuk build sekali pakai (production)
+    # For a one-time build (production)
     npm run build
 
-    # Atau, untuk development (otomatis build ulang saat ada perubahan)
+    # Or, for development (automatically rebuilds on changes)
     npm run dev
     ```
 
-6.  **Jalankan aplikasi Flask:**
+6.  **Run the Flask application:**
 
     ```bash
     flask run
     ```
 
-7.  **Buka aplikasi:**
-    Buka browser Anda dan kunjungi alamat `http://127.0.0.1:5000`.
+7.  **Open the application:**
+    Open your browser and navigate to `http://127.0.0.1:5000`.
 
-### Cara Menggunakan
+### How to Use
 
-1.  **Masukkan Parameter**: Pada kolom "Daftar Parameter", masukkan nama-nama atribut dipisahkan koma. Parameter terakhir akan dianggap sebagai kelas target.
-2.  **Masukkan Dataset**: Pada area "Dataset Pelatihan", masukkan data Anda. Setiap baris mewakili satu entri data, dan nilai di dalamnya dipisahkan oleh koma.
-3.  **Bangun Pohon**: Klik tombol "Bangun Pohon" untuk memproses data dan melihat visualisasinya.
-4.  **Gunakan Contoh**: Klik "Muat Contoh" untuk mengisi form dengan data sampel secara otomatis.
+1.  **Enter Parameters**: In the "Parameter List" field, enter the attribute names separated by commas. The last parameter will be treated as the target class.
+2.  **Enter Dataset**: In the "Training Dataset" area, enter your data. Each row represents a data entry, and the values within it are separated by commas.
+3.  **Build Tree**: Click the "Build Tree" button to process the data and see its visualization.
+4.  **Use Example**: Click "Load Example" to automatically fill the form with sample data.
 
-## 📁 Struktur Proyek
+## 📁 Project Structure
 
-```
 /
 ├── .venv/
 ├── node_modules/
 ├── static/
 │   ├── css/
-│   │   ├── main.css      # File sumber Tailwind CSS
-│   │   └── output.css    # File CSS yang dikompilasi
+│   │   ├── main.css      # Source Tailwind CSS file
+│   │   └── output.css    # Compiled CSS file
 │   └── js/
-│       └── main.js       # Logika frontend Alpine.js
+│       └── main.js       # Alpine.js frontend logic
 ├── templates/
-│   └── index.html        # Halaman utama aplikasi
-├── .gitignore            # Mengabaikan file yang tidak perlu
-├── app.py                # Aplikasi utama Flask
-├── package.json          # Dependensi Node.js
+│   └── index.html        # Main application page
+├── .gitignore            # Ignores unnecessary files
+├── app.py                # Main Flask application
+├── package.json          # Node.js dependencies
 ├── postcss.config.js
 ├── README.md
-├── requirements.txt      # Dependensi Python
-└── tailwind.config.js    # Konfigurasi Tailwind CSS
-```
-
-## 📄 Lisensi
-
-Proyek ini dilisensikan di bawah [MIT License](https://www.google.com/search?q=LICENSE).
+├── requirements.txt      # Python dependencies
+└── tailwind.config.js    # Tailwind CSS configuration

@@ -7,7 +7,7 @@ document.addEventListener('alpine:init', () => {
         },
         loading: {
             show: false,
-            message: 'Membangun pohon...'
+            message: 'Building tree...'
         },
         tree: {
             zoom: 1,
@@ -29,7 +29,7 @@ document.addEventListener('alpine:init', () => {
             this.createFallingLeaves();
             this.initializeTooltips();
             
-            this.addLogEntry('Aplikasi berhasil diinisialisasi.', 'success');
+            this.addLogEntry('Application initialized successfully.', 'success');
         },
 
         showToast(message, type = 'info') {
@@ -41,7 +41,7 @@ document.addEventListener('alpine:init', () => {
             }, 3000);
         },
 
-        showLoading(message = 'Memproses...') {
+        showLoading(message = 'Processing...') {
             this.loading.message = message;
             this.loading.show = true;
         },
@@ -124,7 +124,7 @@ document.addEventListener('alpine:init', () => {
                 tippy('[data-tippy-content]', {
                     theme: 'forest',
                     animation: 'scale',
-                    touch: false // <-- PERBAIKAN 1: Tooltip tidak akan muncul di perangkat sentuh
+                    touch: false
                 });
             }
         },
@@ -134,28 +134,27 @@ document.addEventListener('alpine:init', () => {
                 const intro = introJs();
                 intro.setOptions({
                     steps: [
-                        { element: document.querySelector('#parameters'), title: 'Masukkan Parameter', intro: 'Masukkan parameter yang dipisahkan koma. Parameter terakhir adalah variabel target.' },
-                        { element: document.querySelector('#trainingData'), title: 'Masukkan Data Pelatihan', intro: 'Masukkan data pelatihan Anda, satu baris per entri data, dipisahkan koma.' },
-                        { element: document.querySelector('#build-btn'), title: 'Bangun Pohon', intro: 'Klik di sini untuk membangun pohon keputusan berdasarkan data Anda.' },
-                        { element: document.querySelector('#treeVisualization'), title: 'Visualisasi Pohon', intro: 'Pohon keputusan Anda akan ditampilkan di sini setelah dibangun.' },
-                        { element: document.querySelector('#buildLogs'), title: 'Log Build', intro: 'Lihat log terperinci dari proses pembangunan pohon di sini.' }
+                        { element: document.querySelector('#parameters'), title: 'Enter Parameters', intro: 'Enter the parameters separated by commas. The last parameter is the target variable.' },
+                        { element: document.querySelector('#trainingData'), title: 'Enter Training Data', intro: 'Enter your training data, one entry per line, with values separated by commas.' },
+                        { element: document.querySelector('#build-btn'), title: 'Build Tree', intro: 'Click here to build the decision tree based on your data.' },
+                        { element: document.querySelector('#treeVisualization'), title: 'Tree Visualization', intro: 'Your decision tree will be displayed here after it\'s built.' },
+                        { element: document.querySelector('#buildLogs'), title: 'Build Logs', intro: 'View the detailed logs of the tree building process here.' }
                     ],
-                    nextLabel: 'Berikutnya &rarr;',
-                    prevLabel: '&larr; Sebelumnya',
-                    doneLabel: 'Selesai',
+                    nextLabel: 'Next &rarr;',
+                    prevLabel: '&larr; Previous',
+                    doneLabel: 'Done',
                     showBullets: false,
                     exitOnOverlayClick: true,
                     scrollToElement: true,
                 });
                 
-                // PERBAIKAN 2: Listener untuk memperbaiki posisi jika layar berubah ukuran
                 window.addEventListener('resize', () => {
                     intro.refresh();
                 }, true);
 
                 intro.start();
             } else {
-                this.showToast('Pustaka Intro.js tidak dimuat.', 'error');
+                this.showToast('Intro.js library not loaded.', 'error');
             }
         },
 
@@ -180,15 +179,15 @@ document.addEventListener('alpine:init', () => {
         clearLogs() {
             this.buildLogsHistory = [];
             this.updateLogsDisplay();
-            this.addLogEntry("Log dibersihkan.", "info");
-            this.showToast('Log build dibersihkan', 'info');
+            this.addLogEntry("Logs cleared.", "info");
+            this.showToast('Build logs cleared', 'info');
         },
 
         copyLogs() {
             const logsText = this.buildLogsHistory.map(log => `[${log.timestamp}] ${log.message}`).join('\n');
             navigator.clipboard.writeText(logsText)
-                .then(() => this.showToast('Log disalin ke clipboard', 'success'))
-                .catch(() => this.showToast('Gagal menyalin log', 'error'));
+                .then(() => this.showToast('Logs copied to clipboard', 'success'))
+                .catch(() => this.showToast('Failed to copy logs', 'error'));
         },
         
         downloadLogs() {
@@ -202,7 +201,7 @@ document.addEventListener('alpine:init', () => {
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            this.showToast('Log berhasil diunduh', 'success');
+            this.showToast('Logs downloaded successfully', 'success');
         },
 
         applyZoom() {
@@ -258,9 +257,9 @@ document.addEventListener('alpine:init', () => {
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
-                this.showToast('Gambar pohon diunduh!', 'success');
+                this.showToast('Tree image downloaded!', 'success');
             } else {
-                this.showToast('Visualisasi pohon tidak tersedia untuk diunduh.', 'error');
+                this.showToast('Tree visualization is not available for download.', 'error');
             }
         },
 
@@ -269,16 +268,16 @@ document.addEventListener('alpine:init', () => {
             const data = document.getElementById('trainingData').value;
 
             if (!parameters.trim() || !data.trim()) {
-                this.showToast('Harap isi parameter dan dataset terlebih dahulu.', 'error');
-                this.addLogEntry('Build gagal: Parameter atau dataset kosong.', 'error');
+                this.showToast('Please fill in the parameters and dataset first.', 'error');
+                this.addLogEntry('Build failed: Parameters or dataset is empty.', 'error');
                 return;
             }
 
-            this.addLogEntry('Memulai proses pembangunan pohon...', 'info');
-            this.showLoading('Membangun pohon keputusan...');
+            this.addLogEntry('Starting the tree building process...', 'info');
+            this.showLoading('Building the decision tree...');
 
             try {
-                this.addLogEntry('Mengirim data ke server...', 'info');
+                this.addLogEntry('Sending data to the server...', 'info');
                 const response = await fetch('/build_tree', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -299,11 +298,11 @@ document.addEventListener('alpine:init', () => {
                 treeVisualization.src = `data:image/png;base64,${result.visualization}`;
                 this.resetZoom();
                 
-                this.addLogEntry('Visualisasi pohon berhasil diperbarui.', 'success');
-                this.showToast('Pohon keputusan berhasil dibangun!', 'success');
+                this.addLogEntry('Tree visualization updated successfully.', 'success');
+                this.showToast('Decision tree built successfully!', 'success');
 
             } catch (error) {
-                this.addLogEntry(`Error kritis saat membangun pohon: ${error.message}`, 'error');
+                this.addLogEntry(`Critical error while building tree: ${error.message}`, 'error');
                 this.showToast(`Error: ${error.message}`, 'error');
             } finally {
                 this.hideLoading();
@@ -311,25 +310,25 @@ document.addEventListener('alpine:init', () => {
         },
 
         insertExampleData() {
-            document.getElementById('parameters').value = 'Cuaca,Temperatur,Kelembapan,Angin,Main';
+            document.getElementById('parameters').value = 'Weather, Temperature, Humidity, Wind, Play';
             document.getElementById('trainingData').value =
-                'cerah,panas,tinggi,kecil,tidak\n' +
-                'cerah,panas,tinggi,besar,tidak\n' +
-                'mendung,panas,tinggi,kecil,ya\n' +
-                'hujan,sedang,tinggi,kecil,ya\n' +
-                'hujan,dingin,normal,kecil,ya\n' +
-                'hujan,dingin,normal,besar,tidak\n' +
-                'mendung,dingin,normal,besar,ya\n' +
-                'cerah,sedang,tinggi,kecil,tidak\n' +
-                'cerah,dingin,normal,kecil,ya\n' +
-                'hujan,sedang,normal,kecil,ya\n' +
-                'cerah,sedang,normal,besar,ya\n' +
-                'mendung,sedang,tinggi,besar,ya\n' +
-                'mendung,panas,normal,kecil,ya\n' +
-                'hujan,sedang,tinggi,besar,tidak';
+                'sunny,hot,high,small,no\n' +
+                'sunny,hot,high,big,no\n' +
+                'cloudy,hot,high,small,yes\n' +
+                'rain,medium,high,small,yes\n' +
+                'rain,cold,normal,small,yes\n' +
+                'rain,cold,normal,big,no\n' +
+                'cloudy,cold,normal,big,yes\n' +
+                'sunny,medium,high,small,no\n' +
+                'sunny,cold,normal,small,yes\n' +
+                'rain,medium,normal,small,yes\n' +
+                'sunny,medium,normal,big,yes\n' +
+                'cloudy,medium,high,big,yes\n' +
+                'cloudy,hot,normal,small,yes\n' +
+                'rain,medium,high,big,no';
             
-            this.showToast('Data contoh berhasil dimuat', 'success');
-            this.addLogEntry('Data contoh dimuat.', 'info');
+            this.showToast('Example data loaded successfully', 'success');
+            this.addLogEntry('Example data loaded.', 'info');
             this.updateDataTable();
         },
 
@@ -340,7 +339,7 @@ document.addEventListener('alpine:init', () => {
             const tableBody = document.getElementById('tableBody');
 
             if (!parameters.trim() || !data.trim()) {
-                tableHeader.innerHTML = '<tr><th class="py-2 px-4">Data belum diisi</th></tr>';
+                tableHeader.innerHTML = '<tr><th class="py-2 px-4">No data entered</th></tr>';
                 tableBody.innerHTML = '';
                 return;
             }

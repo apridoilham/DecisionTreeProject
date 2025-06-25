@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌳 Pohon Keputusan Pintar</title>
+    <title>🌳 Smart Decision Tree</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>🌳</text></svg>">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,12 +27,12 @@
 
     <div class="app-container">
         <header class="page-header" data-aos="fade-down">
-            <h1 class="app-title">🌳 Pohon Keputusan Pintar</h1>
+            <h1 class="app-title">🌳 Smart Decision Tree</h1>
             <p class="text-xl text-text-secondary drop-shadow-lg" data-aos="fade-up" data-aos-delay="200">
-                Bangun dan visualisasikan pohon keputusan Anda secara interaktif.
+                Build and visualize your decision trees interactively.
             </p>
-            <button @click="showUserGuide()" class="btn btn-secondary mt-6" data-aos="fade-up" data-aos-delay="400" data-tippy-content="Lihat panduan penggunaan">
-                <i class="fas fa-question-circle mr-2"></i> Panduan Pengguna
+            <button @click="showUserGuide()" class="btn btn-secondary mt-6" data-aos="fade-up" data-aos-delay="400" data-tippy-content="View user guide">
+                <i class="fas fa-question-circle mr-2"></i> User Guide
             </button>
         </header>
 
@@ -41,23 +41,23 @@
                 <section class="card" data-aos="fade-up">
                     <div class="card-header">
                         <i class="fas fa-edit text-2xl text-accent-blue"></i>
-                        <h2 class="text-2xl font-semibold">Input Data</h2>
+                        <h2 class="text-2xl font-semibold">Data Input</h2>
                     </div>
                     <div class="card-body mt-6 space-y-6">
                         <div>
-                            <label for="parameters" class="input-label">Daftar Parameter (Atribut):</label>
-                            <input type="text" id="parameters" class="form-control" placeholder="outlook,temperature,humidity,play" data-tippy-content="Pisahkan dengan koma. Parameter terakhir adalah target klasifikasi.">
+                            <label for="parameters" class="input-label">Parameter List (Attributes):</label>
+                            <input type="text" id="parameters" class="form-control" placeholder="Weather, Temperature, Humidity, Wind, Play" data-tippy-content="Separate with commas. The last parameter is the classification target.">
                         </div>
                         <div>
-                            <label for="trainingData" class="input-label">Dataset Pelatihan:</label>
-                            <textarea id="trainingData" rows="8" class="form-control custom-scrollbar" placeholder="Satu baris per data, pisahkan nilai dengan koma.&#10;Contoh: sunny,hot,high,no" data-tippy-content="Pastikan jumlah kolom per baris sesuai dengan jumlah parameter."></textarea>
+                            <label for="trainingData" class="input-label">Training Dataset:</label>
+                            <textarea id="trainingData" rows="8" class="form-control custom-scrollbar" placeholder="One data entry per line, separate values with commas.&#10;Example: sunny,hot,high,small,no" data-tippy-content="Ensure the number of columns per row matches the number of parameters."></textarea>
                         </div>
                         <div class="flex flex-col sm:flex-row justify-between gap-4 pt-2">
-                            <button id="build-btn" @click="buildTree()" class="btn btn-primary w-full sm:w-auto" data-tippy-content="Mulai membangun pohon (Ctrl+Enter)">
-                                <i class="fas fa-cogs"></i> Bangun Pohon
+                            <button id="build-btn" @click="buildTree()" class="btn btn-primary w-full sm:w-auto" data-tippy-content="Start building the tree (Ctrl+Enter)">
+                                <i class="fas fa-cogs"></i> Build Tree
                             </button>
-                            <button @click="insertExampleData()" class="btn btn-secondary w-full sm:w-auto" data-tippy-content="Muat data contoh untuk memulai (Ctrl+Shift+E)">
-                                <i class="fas fa-lightbulb"></i> Muat Contoh
+                            <button @click="insertExampleData()" class="btn btn-secondary w-full sm:w-auto" data-tippy-content="Load example data to get started (Ctrl+Shift+E)">
+                                <i class="fas fa-lightbulb"></i> Load Example
                             </button>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                 <section class="card" data-aos="fade-up" data-aos-delay="200">
                     <div class="card-header">
                         <i class="fas fa-table text-2xl text-accent-blue"></i>
-                        <h2 class="text-2xl font-semibold">Pratinjau Data</h2>
+                        <h2 class="text-2xl font-semibold">Data Preview</h2>
                     </div>
                     <div class="card-body mt-6">
                         <div class="overflow-x-auto rounded-lg border border-border-color max-h-96 custom-scrollbar">
@@ -85,16 +85,16 @@
                 <section class="card" data-aos="fade-up">
                     <div class="card-header">
                         <i class="fas fa-project-diagram text-2xl text-accent-blue"></i>
-                        <h2 class="text-2xl font-semibold">Visualisasi Pohon</h2>
+                        <h2 class="text-2xl font-semibold">Tree Visualization</h2>
                     </div>
                     <div class="card-body mt-6">
                         <div class="tree-container">
-                            <img id="treeVisualization" src="#" class="tree-image" alt="Visualisasi Pohon Keputusan akan muncul di sini">
+                            <img id="treeVisualization" src="#" class="tree-image" alt="The Decision Tree visualization will appear here">
                             <div class="tree-controls">
-                                <button @click="zoomIn()" class="btn-icon" data-tippy-content="Perbesar (Ctrl +)"><i class="fas fa-search-plus"></i></button>
-                                <button @click="zoomOut()" class="btn-icon" data-tippy-content="Perkecil (Ctrl -)"><i class="fas fa-search-minus"></i></button>
+                                <button @click="zoomIn()" class="btn-icon" data-tippy-content="Zoom In (Ctrl +)"><i class="fas fa-search-plus"></i></button>
+                                <button @click="zoomOut()" class="btn-icon" data-tippy-content="Zoom Out (Ctrl -)"><i class="fas fa-search-minus"></i></button>
                                 <button @click="resetZoom()" class="btn-icon" data-tippy-content="Reset Zoom (Ctrl 0)"><i class="fas fa-compress-arrows-alt"></i></button>
-                                <button @click="downloadTree()" class="btn-icon" data-tippy-content="Unduh Gambar Pohon"><i class="fas fa-download"></i></button>
+                                <button @click="downloadTree()" class="btn-icon" data-tippy-content="Download Tree Image"><i class="fas fa-download"></i></button>
                             </div>
                         </div>
                     </div>
@@ -103,18 +103,18 @@
                 <section class="card" data-aos="fade-up" data-aos-delay="200">
                     <div class="card-header">
                         <i class="fas fa-terminal text-2xl text-accent-blue"></i>
-                        <h2 class="text-2xl font-semibold">Log Proses</h2>
+                        <h2 class="text-2xl font-semibold">Process Log</h2>
                     </div>
                     <div class="card-body mt-6">
                         <div class="logs-container">
                             <div id="buildLogs" class="logs-content custom-scrollbar">
-                                <p class="text-text-secondary text-center p-4">Log pembangunan pohon akan muncul di sini.</p>
+                                <p class="text-text-secondary text-center p-4">The tree building log will appear here.</p>
                             </div>
                         </div>
                         <div class="logs-actions mt-4 flex justify-end gap-3">
-                            <button @click="clearLogs()" class="btn btn-secondary" data-tippy-content="Bersihkan log"><i class="fas fa-trash-alt"></i></button>
-                            <button @click="copyLogs()" class="btn btn-secondary" data-tippy-content="Salin log"><i class="fas fa-copy"></i></button>
-                            <button @click="downloadLogs()" class="btn btn-secondary" data-tippy-content="Simpan log"><i class="fas fa-save"></i></button>
+                            <button @click="clearLogs()" class="btn btn-secondary" data-tippy-content="Clear logs"><i class="fas fa-trash-alt"></i></button>
+                            <button @click="copyLogs()" class="btn btn-secondary" data-tippy-content="Copy logs"><i class="fas fa-copy"></i></button>
+                            <button @click="downloadLogs()" class="btn btn-secondary" data-tippy-content="Save logs"><i class="fas fa-save"></i></button>
                         </div>
                     </div>
                 </section>
@@ -123,21 +123,20 @@
     </div>
 
     <footer class="bg-bg-secondary text-text-primary py-6 mt-12 text-center shadow-inner">
-        <p>Dibuat dengan <i class="fas fa-heart text-danger-red"></i> menggunakan Flask & Alpine.js</p>
-        <p class="text-text-secondary text-sm">&copy; 2024</p>
+        <p>&copy; 2025 Decision Tree Project <a href="https://github.com/apridoilham" target="_blank" rel="noopener noreferrer" class="font-semibold text-accent-blue-hover hover:underline">Aprido Ilham</a>.</p>
     </footer>
 
     <div x-show="toast.show" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4"
-         class="fixed bottom-8 right-8 p-4 rounded-lg shadow-xl text-white flex items-center space-x-3 z-50"
-         :class="{ 'bg-accent-blue': toast.type === 'info', 'bg-success-green': toast.type === 'success', 'bg-danger-red': toast.type === 'error' }"
-         style="display: none;">
+        class="fixed bottom-8 right-8 p-4 rounded-lg shadow-xl text-white flex items-center space-x-3 z-50"
+        :class="{ 'bg-accent-blue': toast.type === 'info', 'bg-success-green': toast.type === 'success', 'bg-danger-red': toast.type === 'error' }"
+        style="display: none;">
         <i class="fas" :class="{ 'fa-info-circle': toast.type === 'info', 'fa-check-circle': toast.type === 'success', 'fa-exclamation-triangle': toast.type === 'error' }"></i>
         <span x-text="toast.message"></span>
     </div>
 
     <div x-show="loading.show" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-         class="fixed inset-0 bg-bg-primary bg-opacity-90 backdrop-blur-sm flex flex-col items-center justify-center gap-6 z-[60]"
-         style="display: none;">
+        class="fixed inset-0 bg-bg-primary bg-opacity-90 backdrop-blur-sm flex flex-col items-center justify-center gap-6 z-[60]"
+        style="display: none;">
         <div class="animate-spin-slow rounded-full h-16 w-16 border-t-4 border-b-4 border-accent-blue"></div>
         <p class="text-text-primary text-lg font-medium" x-text="loading.message"></p>
     </div>

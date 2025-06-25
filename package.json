@@ -1,7 +1,7 @@
 {
   "name": "decision-tree-builder",
   "version": "1.0.0",
-  "description": "Aplikasi web untuk membangun dan memvisualisasikan Pohon Keputusan.",
+  "description": "A web application to build and visualize Decision Trees.",
   "scripts": {
     "dev": "tailwindcss -i ./static/css/main.css -o ./static/css/output.css --watch",
     "build": "tailwindcss -i ./static/css/main.css -o ./static/css/output.css --minify"

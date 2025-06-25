@@ -29,7 +29,7 @@ document.addEventListener('alpine:init', () => {
             this.createFallingLeaves();
             this.initializeTooltips();
             
-            addLogEntry('Aplikasi berhasil diinisialisasi.', 'success');
+            this.addLogEntry('Aplikasi berhasil diinisialisasi.', 'success');
         },
 
         showToast(message, type = 'info') {
